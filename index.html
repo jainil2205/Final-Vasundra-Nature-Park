@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vasundhara Farm Stay - Experience Nature's Embrace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <style>
+        :root {
+            --primary-green: #2F4F2F;
+            --accent-green: #6B8E23;
+            --light-green: #E8F5E8;
+            --cream: #F5F5DC;
+            --earth-brown: #8B4513;
+            --sunset-orange: #FF8C00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+        }
+        
+        .hero-slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        
+        .hero-slideshow img.active {
+            opacity: 1;
+        }
+        
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(47, 79, 47, 0.8) 0%, rgba(107, 142, 35, 0.6) 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .uniform-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        
+        .room-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--accent-green) 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(47, 79, 47, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(47, 79, 47, 0.4);
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--primary-green) 100%);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .section-padding {
+            padding: 100px 0;
+        }
+        
+        .floating-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            transform: translateY(-100%);
+        }
+        
+        .floating-nav.visible {
+            transform: translateY(0);
+        }
+        
+        .mobile-menu {
+            display: none;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(47, 79, 47, 0.95);
+            z-index: 2000;
+            padding: 100px 20px;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-green);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--accent-green);
+            transform: translateY(-5px);
+        }
+        
+        .star-rating {
+            color: #FFD700;
+        }
+        
+        .contact-form {
+            background: linear-gradient(135deg, var(--light-green) 0%, white 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #E5E5E5;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-input:focus {
+            border-color: var(--accent-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.1);
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            background: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .hero-slideshow {
+                height: 100vh;
+            }
+            
+            .uniform-image, .room-image {
+                height: 200px;
+            }
+            
+            .contact-form {
+                padding: 30px 20px;
+            }
+        }
+        
+        .attraction-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .attraction-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .price-tag {
+            background: linear-gradient(135deg, var(--sunset-orange) 0%, var(--earth-brown) 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .amenity-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--light-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Navigation -->
+    <nav class="floating-nav" id="floatingNav">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-green-800">Vasundhara Farm Stay</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-green-800 hover:text-green-600 transition-colors">Home</a>
+                <a href="#about" class="nav-link text-green-800 hover:text-green-600 transition-colors">About</a>
+                <a href="#attractions" class="nav-link text-green-800 hover:text-green-600 transition-colors">Attractions</a>
+                <a href="#rooms" class="nav-link text-green-800 hover:text-green-600 transition-colors">Rooms</a>
+                <a href="#nearby" class="nav-link text-green-800 hover:text-green-600 transition-colors">Nearby</a>
+                <a href="#contact" class="nav-link text-green-800 hover:text-green-600 transition-colors">Contact</a>
+            </div>
+            <button class="md:hidden mobile-menu-toggle" id="mobileMenuToggle">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="text-center">
+            <button class="absolute top-8 right-8 text-white text-3xl" id="closeMobileMenu">&times;</button>
+            <div class="space-y-8 mt-12">
+                <a href="#home" class="block text-white text-xl hover:text-green-300 transition-colors">Home</a>
+                <a href="#about" class="block text-white text-xl hover:text-green-300 transition-colors">About</a>
+                <a href="#attractions" class="block text-white text-xl hover:text-green-300 transition-colors">Attractions</a>
+                <a href="#rooms" class="block text-white text-xl hover:text-green-300 transition-colors">Rooms</a>
+                <a href="#nearby" class="block text-white text-xl hover:text-green-300 transition-colors">Nearby</a>
+                <a href="#contact" class="block text-white text-xl hover:text-green-300 transition-colors">Contact</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center">
+        <div class="hero-slideshow">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&h=1080&fit=crop" alt="Farm View 1" class="active">
+            <img src="https://images.unsplash.com/photo-1464822759844-d150ad6c5550?w=1920&h=1080&fit=crop" alt="Farm View 2">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop" alt="Farm View 3">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop" alt="Farm View 4">
+            <img src="https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1920&h=1080&fit=crop" alt="Farm View 5">
+        </div>
+        <div class="gradient-overlay absolute inset-0"></div>
+        
+        <!-- Main Navigation -->
+        <nav class="absolute top-0 left-0 right-0 z-10 p-6">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-3xl md:text-4xl font-bold text-white font-display">Vasundhara Farm Stay</h1>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-white hover:text-green-300 transition-colors">About</a>
+                    <a href="#attractions" class="text-white hover:text-green-300 transition-colors">Attractions</a>
+                    <a href="#rooms" class="text-white hover:text-green-300 transition-colors">Rooms</a>
+                    <a href="#nearby" class="text-white hover:text-green-300 transition-colors">Nearby</a>
+                    <a href="#reviews" class="text-white hover:text-green-300 transition-colors">Reviews</a>
+                    <a href="#contact" class="text-white hover:text-green-300 transition-colors">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center text-white px-6 max-w-4xl">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 font-display" data-aos="fade-up">
+                Experience Nature's Embrace
+            </h2>
+            <p class="text-xl md:text-2xl mb-8 opacity-90" data-aos="fade-up" data-aos-delay="200">
+                Discover authentic farm life, majestic wildlife, and unforgettable memories at Vasundhara Farm Stay
+            </p>
+            <div class="space-x-4" data-aos="fade-up" data-aos-delay="400">
+                <a href="#rooms" class="btn-primary">Book Your Stay</a>
+                <a href="#attractions" class="btn-secondary">Explore Attractions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6 font-display">About Vasundhara Farm Stay</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Nestled in the heart of nature, our farm stay offers an authentic escape from city life, 
+                    where sustainable farming meets comfortable hospitality.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop" 
+                         alt="Farm Overview" class="uniform-image">
+                </div>
+                <div data-aos="fade-left">
+                    <h3 class="text-2xl font-bold text-green-800 mb-4">Our Story</h3>
+                    <p class="text-gray-600 mb-6">
+                        Founded in 1995 on 500 acres of pristine farmland, Vasundhara Farm Stay has been a pioneer 
+                        in sustainable agriculture and eco-tourism. We combine traditional farming practices with 
+                        modern comfort to create an unforgettable experience.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <div class="text-3xl font-bold text-green-800">500+</div>
+                            <div class="text-sm text-gray-600">Acres of Farmland</div>
+                        </div>
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <div class="text-3xl font-bold text-green-800">25+</div>
+                            <div class="text-sm text-gray-600">Years of Experience</div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn-primary">Plan Your Visit</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lion Attraction Section -->
+    <section id="attractions" class="section-padding bg-gradient-to-br from-orange-50 to-yellow-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6 font-display">Majestic Lion Encounter</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Experience the thrill of observing magnificent lions in their carefully maintained habitat
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+    <div class="attraction-card" data-aos="fade-up" data-aos-delay="100">
+        <img src="https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?w=400&h=300&fit=crop" 
+             alt="Lion Family" class="uniform-image mb-6">
+        <h3 class="text-2xl font-bold text-green-800 mb-4">Lion Safari Experience</h3>
+        <p class="text-gray-600 mb-4">
+            Embark on a guided safari through our 50-acre lion sanctuary, home to rescued and rehabilitated lions. 
+            Our expert guides provide fascinating insights into lion behavior and conservation efforts.
+        </p>
+        <div class="price-tag">₹2,500 per person</div>
+    </div>
+    
+    <div class="attraction-card" data-aos="fade-up" data-aos-delay="200">
+        <img src="https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?w=400&h=300&fit=crop" 
+             alt="Lion Feeding" class="uniform-image mb-6">
+        <h3 class="text-2xl font-bold text-green-800 mb-4">Feeding Experience</h3>
+        <p class="text-gray-600 mb-4">
+            Witness the power and majesty of lions during their feeding time. This supervised experience 
+            offers a unique opportunity to observe natural hunting instincts and social dynamics.
+        </p>
+        <div class="price-tag">₹1,800 per person</div>
+    </div>
+    
+    <div class="attraction-card" data-aos="fade-up" data-aos-delay="300">
+        <img src="https://images.unsplash.com/photo-1551969014-7d2c4cddf0b6?w=400&h=300&fit=crop" 
+             alt="Lion Photography" class="uniform-image mb-6">
+        <h3 class="text-2xl font-bold text-green-800 mb-4">Photography Workshop</h3>
+        <p class="text-gray-600 mb-4">
+            Capture stunning wildlife photographs with guidance from professional photographers. 
+            Learn techniques for wildlife photography while documenting these magnificent creatures.
+        </p>
+        <div class="price-tag">₹3,200 per person</div>
+    </div>
+</div>
+            
+            <div class="bg-white rounded-20 p-8 shadow-xl" data-aos="fade-up">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold text-green-800 mb-4">Conservation Mission</h3>
+                        <p class="text-gray-600 mb-4">
+                            Our lion sanctuary is part of a broader conservation initiative to protect and rehabilitate 
+                            big cats. We work closely with wildlife authorities to provide a safe haven for lions that 
+                            cannot be released into the wild.
+                        </p>
+                        <ul class="space-y-2 text-gray-600 mb-6">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
+                                </svg>
+                                24/7 veterinary care and monitoring
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
+                                </svg>
+                                Spacious natural habitat recreation
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
+                                </svg>
+                                Educational programs for visitors
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
+                                </svg>
+                                Research and breeding programs
+                            </li>
+                        </ul>
+                        <a href="#contact" class="btn-primary">Book Lion Experience</a>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?w=200&h=100&fit=crop" 
+                             alt="Lion Conservation" class="uniform-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Farm and Nature Section -->
+    <section class="section-padding bg-gradient-to-br from-green-50 to-blue-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6 font-display">Farm & Nature Experiences</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Immerse yourself in authentic farm life and discover the beauty of sustainable agriculture
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-6 mb-12">
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=250&fit=crop" 
+                         alt="Organic Farming" class="uniform-image">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Organic Farming</h3>
+                        <p class="text-gray-600 text-sm">Experience sustainable farming practices and learn about organic cultivation techniques.</p>
+                    </div>
+                </div>
+                
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&h=250&fit=crop" 
+                         alt="Vegetable Gardens" class="uniform-image">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Vegetable Gardens</h3>
+                        <p class="text-gray-600 text-sm">Harvest fresh, organic vegetables directly from our gardens and learn about seasonal farming.</p>
+                    </div>
+                </div>
+                
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1551817958-11e0f7bbea9c?w=400&h=250&fit=crop" 
+                         alt="Fruit Orchards" class="uniform-image">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Fruit Orchards</h3>
+                        <p class="text-gray-600 text-sm">Explore our extensive orchards featuring mangoes, apples, oranges, and seasonal fruits.</p>
+                    </div>
+                </div>
+                
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=250&fit=crop" 
+                         alt="Farm Animals" class="uniform-image">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Farm Animals</h3>
+                        <p class="text-gray-600 text-sm">Meet our friendly farm animals including cows, goats, chickens, and ducks.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop" 
+                         alt="Nature Walks" class="uniform-image">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Nature Walks</h3>
+                        <p class="text-gray-600 text-sm">Discover diverse flora and fauna on guided nature walks through our scenic trails.</p>
+                    </div>
+                </div>
+                
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="600">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=250&fit=crop" 
+                         alt="Bird Watching" class="uniform-image">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Bird Watching</h3>
+                        <p class="text-gray-600 text-sm">Spot exotic birds in their natural habitat with our expert ornithology guides.</p>
+                    </div>
+                </div>
+                
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="700">
+                    <img src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=400&h=250&fit=crop" 
+                         alt="Fishing Pond" class="uniform-image">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Fishing Experience
+                            <p class="text-gray-600 text-sm">Enjoy peaceful fishing in our well-stocked pond surrounded by lush greenery.</p>
+                    </div>
+                </div>
+                
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="800">
+                    <img src="https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=400&h=250&fit=crop" 
+                         alt="Sunset Views" class="uniform-image">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Sunset Views</h3>
+                        <p class="text-gray-600 text-sm">Experience breathtaking sunsets over rolling hills and farmland from our viewing deck.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms & Accommodation Section -->
+    <section id="rooms" class="section-padding bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6 font-display">Comfortable Accommodations</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Choose from our range of comfortable rooms and cottages, each designed to provide a perfect blend of rustic charm and modern amenities
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=300&fit=crop" 
+                         alt="Deluxe Farm Cottage" class="room-image">
+                    <div class="p-8">
+                        <div class="price-tag mb-4">₹4,500/night</div>
+                        <h3 class="text-2xl font-bold text-green-800 mb-4">Deluxe Farm Cottage</h3>
+                        <p class="text-gray-600 mb-6">
+                            Spacious cottage with panoramic farm views, private balcony, and traditional decor. 
+                            Perfect for families or couples seeking authentic farm experience.
+                        </p>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-green-800 mb-3">Amenities:</h4>
+                            <div class="grid grid-cols-2 gap-2 text-sm text-gray-600">
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">🛏️</div>
+                                    <span>King Size Bed</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">🚿</div>
+                                    <span>Hot Water</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">❄️</div>
+                                    <span>Air Conditioning</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">📱</div>
+                                    <span>Free Wi-Fi</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#contact" class="btn-primary w-full text-center">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=300&fit=crop" 
+                         alt="Standard Farm Room" class="room-image">
+                    <div class="p-8">
+                        <div class="price-tag mb-4">₹2,800/night</div>
+                        <h3 class="text-2xl font-bold text-green-800 mb-4">Standard Farm Room</h3>
+                        <p class="text-gray-600 mb-6">
+                            Comfortable room with essential amenities and farm views. 
+                            Ideal for budget-conscious travelers seeking a genuine farm stay experience.
+                        </p>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-green-800 mb-3">Amenities:</h4>
+                            <div class="grid grid-cols-2 gap-2 text-sm text-gray-600">
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">🛏️</div>
+                                    <span>Double Bed</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">🚿</div>
+                                    <span>Hot Water</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">🌀</div>
+                                    <span>Ceiling Fan</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">📱</div>
+                                    <span>Free Wi-Fi</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#contact" class="btn-primary w-full text-center">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=300&fit=crop" 
+                         alt="Family Farmhouse" class="room-image">
+                    <div class="p-8">
+                        <div class="price-tag mb-4">₹7,200/night</div>
+                        <h3 class="text-2xl font-bold text-green-800 mb-4">Family Farmhouse</h3>
+                        <p class="text-gray-600 mb-6">
+                            Spacious farmhouse accommodating up to 6 guests with separate living area, 
+                            kitchen facilities, and private garden space.
+                        </p>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-green-800 mb-3">Amenities:</h4>
+                            <div class="grid grid-cols-2 gap-2 text-sm text-gray-600">
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">🏠</div>
+                                    <span>2 Bedrooms</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">🍳</div>
+                                    <span>Kitchen</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">❄️</div>
+                                    <span>Air Conditioning</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="amenity-icon mr-2">🌳</div>
+                                    <span>Private Garden</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#contact" class="btn-primary w-full text-center">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nearby Attractions Section -->
+    <section id="nearby" class="section-padding bg-gradient-to-br from-blue-50 to-purple-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6 font-display">Nearby Attractions</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Explore the rich cultural heritage and natural beauty surrounding our farm stay
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card-hover text-center" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=400&h=250&fit=crop" 
+                         alt="Ancient Temple" class="uniform-image mb-4">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Historic Temple</h3>
+                        <p class="text-gray-600 text-sm mb-2">Ancient temple complex dating back 800 years</p>
+                        <span class="text-green-600 font-semibold">2.5 km away</span>
+                    </div>
+                </div>
+                
+                <div class="card-hover text-center" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop" 
+                         alt="Nature Reserve" class="uniform-image mb-4">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Nature Reserve</h3>
+                        <p class="text-gray-600 text-sm mb-2">Protected forest area with hiking trails</p>
+                        <span class="text-green-600 font-semibold">5 km away</span>
+                    </div>
+                </div>
+                
+                <div class="card-hover text-center" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=400&h=250&fit=crop" 
+                         alt="Local Market" class="uniform-image mb-4">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Local Market</h3>
+                        <p class="text-gray-600 text-sm mb-2">Traditional market with local handicrafts</p>
+                        <span class="text-green-600 font-semibold">8 km away</span>
+                    </div>
+                </div>
+                
+                <div class="card-hover text-center" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1494391220857-3d63b4653ee7?w=400&h=250&fit=crop" 
+                         alt="Scenic Viewpoint" class="uniform-image mb-4">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Scenic Viewpoint</h3>
+                        <p class="text-gray-600 text-sm mb-2">Panoramic valley views and sunset spot</p>
+                        <span class="text-green-600 font-semibold">12 km away</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="section-padding bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6 font-display">Guest Reviews</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Hear what our guests have to say about their unforgettable experiences at Vasundhara Farm Stay
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover p-8 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="star-rating mb-4 text-2xl">★★★★★</div>
+                    <p class="text-gray-600 mb-6 italic">
+                        "An absolutely magical experience! The lion encounter was breathtaking, and the farm activities 
+                        gave us a perfect insight into sustainable living. Highly recommended for families."
+                    </p>
+                    <div class="font-semibold text-green-800">Sarah & Mike Johnson</div>
+                    <div class="text-sm text-gray-500">Family from Mumbai</div>
+                </div>
+                
+                <div class="card-hover p-8 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="star-rating mb-4 text-2xl">★★★★★</div>
+                    <p class="text-gray-600 mb-6 italic">
+                        "The perfect escape from city life! The organic food was delicious, the staff was incredibly 
+                        welcoming, and watching the sunrise over the farm was unforgettable."
+                    </p>
+                    <div class="font-semibold text-green-800">Priya Sharma</div>
+                    <div class="text-sm text-gray-500">Solo Traveler from Delhi</div>
+                </div>
+                
+                <div class="card-hover p-8 text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="star-rating mb-4 text-2xl">★★★★★</div>
+                    <p class="text-gray-600 mb-6 italic">
+                        "Our children had the time of their lives feeding the animals and learning about farming. 
+                        The lion safari was the highlight of our trip. We'll definitely be back!"
+                    </p>
+                    <div class="font-semibold text-green-800">Raj & Meera Patel</div>
+                    <div class="text-sm text-gray-500">Family from Bangalore</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding bg-gradient-to-br from-green-100 to-blue-100">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6 font-display">Contact & Booking</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Ready to experience the magic of Vasundhara Farm Stay? Get in touch with us to plan your perfect getaway
+            </p>
+        </div>
+        
+        <div class="grid lg:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div class="contact-form" data-aos="fade-right">
+                <h3 class="text-2xl font-bold text-green-800 mb-6">Send us a Message</h3>
+                <div class="success-message hidden" id="successMessage">
+                    Thank you for your message! We'll get back to you within 24 hours.
+                </div>
+                <div class="error-message hidden" id="formError">
+                    There was an error sending your message. Please try again.
+                </div>
+                <form id="contactForm">
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <input type="text" id="firstName" name="firstName" placeholder="First Name" 
+                                   class="form-input w-full p-3 border border-gray-300 rounded-lg" required>
+                            <div class="error-message hidden text-red-600 text-sm mt-1" id="firstNameError">Please enter your first name</div>
+                        </div>
+                        <div>
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" 
+                                   class="form-input w-full p-3 border border-gray-300 rounded-lg" required>
+                            <div class="error-message hidden text-red-600 text-sm mt-1" id="lastNameError">Please enter your last name</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <input type="email" id="email" name="email" placeholder="Email Address" 
+                               class="form-input w-full p-3 border border-gray-300 rounded-lg" required>
+                        <div class="error-message hidden text-red-600 text-sm mt-1" id="emailError">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <input type="tel" id="phone" name="phone" placeholder="Phone Number" 
+                               class="form-input w-full p-3 border border-gray-300 rounded-lg" required>
+                        <div class="error-message hidden text-red-600 text-sm mt-1" id="phoneError">Please enter your phone number</div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <input type="date" id="checkIn" name="checkIn" 
+                                   class="form-input w-full p-3 border border-gray-300 rounded-lg" required>
+                            <div class="error-message hidden text-red-600 text-sm mt-1" id="checkInError">Please select check-in date</div>
+                        </div>
+                        <div>
+                            <input type="date" id="checkOut" name="checkOut" 
+                                   class="form-input w-full p-3 border border-gray-300 rounded-lg" required>
+                            <div class="error-message hidden text-red-600 text-sm mt-1" id="checkOutError">Please select check-out date</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <select id="guests" name="guests" class="form-input w-full p-3 border border-gray-300 rounded-lg" required>
+                            <option value="">Number of Guests</option>
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5">5 Guests</option>
+                            <option value="6+">6+ Guests</option>
+                        </select>
+                        <div class="error-message hidden text-red-600 text-sm mt-1" id="guestsError">Please select number of guests</div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <textarea id="message" name="message" rows="4" 
+                                  placeholder="Tell us about your interests and any special requirements" 
+                                  class="form-input w-full p-3 border border-gray-300 rounded-lg"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">Send Message & Get Quote</button>
+                </form>
+            </div>
+            
+            <!-- Contact Information -->
+            <div data-aos="fade-left">
+                <div class="bg-white rounded-20 p-8 shadow-xl mb-8">
+                    <h3 class="text-2xl font-bold text-green-800 mb-6">Get in Touch</h3>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center">
+                            <div class="amenity-icon mr-4">📍</div>
+                            <div>
+                                <div class="font-semibold text-green-800">Address</div>
+                                <div class="text-gray-600">Vasundhara Farm Stay, Village Kumhari,<br>
+                                District Bilaspur, Himachal Pradesh 174013</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="amenity-icon mr-4">📞</div>
+                            <div>
+                                <div class="font-semibold text-green-800">Phone</div>
+                                <div class="text-gray-600">+91 98765 43210<br>+91 87654 32109</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="amenity-icon mr-4">✉️</div>
+                            <div>
+                                <div class="font-semibold text-green-800">Email</div>
+                                <div class="text-gray-600">info@vasundharafarmstay.com<br>
+                                bookings@vasundharafarmstay.com</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="amenity-icon mr-4">🕒</div>
+                            <div>
+                                <div class="font-semibold text-green-800">Check-in / Check-out</div>
+                            <div class="text-gray-600">Check-in: 2:00 PM<br>Check-out: 11:00 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Google Map -->
+                    <div class="mb-8">
+                        <h4 class="font-semibold text-green-800 mb-3">Find Us</h4>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3714.705463618329!2d71.04071297380956!3d21.401498974874816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be285306501efe3%3A0xbebdc717188c78e2!2sVasundhara%20Nature%20Park!5e0!3m2!1sen!2sin!4v1748495474285!5m2!1sen!2sin" 
+                                width="100%" height="300" style="border:0;border-radius:8px;" allowfullscreen="" 
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    
+                    <div class="border-t pt-6">
+                        <h4 class="font-semibold text-green-800 mb-3">Quick Booking</h4>
+                        <p class="text-gray-600 text-sm mb-4">
+                            For immediate bookings or urgent inquiries, call us directly. 
+                            Our team is available 24/7 to assist you.
+                        </p>
+                        <a href="tel:+919876543210" class="btn-primary bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition">Call Now</a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-20 p-8 shadow-xl">
+                    <h3 class="text-xl font-bold text-green-800 mb-4">Booking Policies</h3>
+                    <ul class="space-y-2 text-gray-600 text-sm">
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
+                            </svg>
+                            50% advance payment required for confirmation
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
+                            </svg>
+                            Free cancellation up to 7 days before arrival
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
+                            </svg>
+                            All meals and activities included in package
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
+                            </svg>
+                            Special rates for groups of 10+ people
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    // Initialize EmailJS with your public key
+    emailjs.init("YOUR_EMAILJS_PUBLIC_KEY"); // Replace with your EmailJS public key
+
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Clear previous error messages
+        document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+        document.getElementById('successMessage').classList.add('hidden');
+        document.getElementById('formError').classList.add('hidden');
+
+        // Validate form
+        let isValid = true;
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const checkIn = document.getElementById('checkIn').value;
+        const checkOut = document.getElementById('checkOut').value;
+        const guests = document.getElementById('guests').value;
+
+        if (!firstName) {
+            document.getElementById('firstNameError').classList.remove('hidden');
+            isValid = false;
+        }
+        if (!lastName) {
+            document.getElementById('lastNameError').classList.remove('hidden');
+            isValid = false;
+        }
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+            document.getElementById('emailError').classList.remove('hidden');
+            isValid = false;
+        }
+        if (!phone) {
+            document.getElementById('phoneError').classList.remove('hidden');
+            isValid = false;
+        }
+        if (!checkIn) {
+            document.getElementById('checkInError').classList.remove('hidden');
+            isValid = false;
+        }
+        if (!checkOut) {
+            document.getElementById('checkOutError').classList.remove('hidden');
+            isValid = false;
+        }
+        if (!guests) {
+            document.getElementById('guestsError').classList.remove('hidden');
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        // Prepare form data
+        const formData = {
+            firstName,
+            lastName,
+            email,
+            phone,
+            checkIn,
+            checkOut,
+            guests,
+            message: document.getElementById('message').value
+        };
+
+        // Send email using EmailJS
+        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+            to_email: "jainildoshi22@gmail.com",
+            from_name: `${formData.firstName} ${formData.lastName}`,
+            from_email: formData.email,
+            phone: formData.phone,
+            check_in: formData.checkIn,
+            check_out: formData.checkOut,
+            guests: formData.guests,
+            message: formData.message
+        })
+        .then(() => {
+            document.getElementById('successMessage').classList.remove('hidden');
+            document.getElementById('contactForm').reset();
+        })
+        .catch(() => {
+            document.getElementById('formError').classList.remove('hidden');
+        });
+    });
+</script>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 font-display">Vasundhara Farm Stay</h3>
+                    <p class="text-gray-400 mb-4">
+                        Experience authentic farm life with modern comfort and unforgettable wildlife encounters.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">📘</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">📷</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">🐦</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">📺</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#attractions" class="hover:text-white transition-colors">Lion Experience</a></li>
+                        <li><a href="#rooms" class="hover:text-white transition-colors">Accommodations</a></li>
+                        <li><a href="#nearby" class="hover:text-white transition-colors">Nearby Attractions</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Experiences</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Lion Safari</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Organic Farming</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Nature Walks</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Bird Watching</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Photography Tours</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>📍 Village Kumhari, Bilaspur</li>
+                        <li>Himachal Pradesh 174013</li>
+                        <li>📞 +91 98765 43210</li>
+                        <li>✉️ info@vasundharafarmstay.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Vasundhara Farm Stay. All rights reserved. | Designed with ❤️ for nature lovers</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </div>
+
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Hero Slideshow
+        const slides = document.querySelectorAll('.hero-slideshow img');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 5000);
+
+        // Floating Navigation
+        const floatingNav = document.getElementById('floatingNav');
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                if (scrollTop > lastScrollTop) {
+                    // Scrolling down
+                    floatingNav.classList.remove('visible');
+                } else {
+                    // Scrolling up
+                    floatingNav.classList.add('visible');
+                }
+            } else {
+                floatingNav.classList.remove('visible');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Mobile Menu
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+        mobileMenuToggle.addEventListener('click', function() {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMobileMenu.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Contact Form Handling
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Clear previous error messages
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            let isValid = true;
+            
+            // Validate form fields
+            const fields = {
+                firstName: document.getElementById('firstName'),
+                lastName: document.getElementById('lastName'),
+                email: document.getElementById('email'),
+                phone: document.getElementById('phone'),
+                checkIn: document.getElementById('checkIn'),
+                checkOut: document.getElementById('checkOut'),
+                guests: document.getElementById('guests')
+            };
+            
+            // Check required fields
+            Object.keys(fields).forEach(key => {
+                if (!fields[key].value.trim()) {
+                    document.getElementById(key + 'Error').style.display = 'block';
+                    isValid = false;
+                }
+            });
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (fields.email.value && !emailRegex.test(fields.email.value)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Date validation
+            const checkInDate = new Date(fields.checkIn.value);
+            const checkOutDate = new Date(fields.checkOut.value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (checkInDate < today) {
+                document.getElementById('checkInError').textContent = 'Check-in date cannot be in the past';
+                document.getElementById('checkInError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (checkOutDate <= checkInDate) {
+                document.getElementById('checkOutError').textContent = 'Check-out date must be after check-in date';
+                document.getElementById('checkOutError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Show success message
+                successMessage.style.display = 'block';
+                contactForm.reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+
+        // Set minimum date for check-in to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('checkIn').setAttribute('min', today);
+        
+        // Set minimum date for check-out based on check-in date
+        document.getElementById('checkIn').addEventListener('change', function() {
+            const checkInDate = new Date(this.value);
+            checkInDate.setDate(checkInDate.getDate() + 1);
+            const minCheckOut = checkInDate.toISOString().split('T')[0];
+            document.getElementById('checkOut').setAttribute('min', minCheckOut);
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero-slideshow');
+            if (parallax) {
+                const speed = scrolled * 0.5;
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.card-hover').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add typing effect to hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', function() {
+            const heroTitle = document.querySelector('.hero-content h1');
+            if (heroTitle) {
+                const originalText = heroTitle.textContent;
+                setTimeout(() => typeWriter(heroTitle, originalText, 80), 1000);
+            }
+        });
+
+        // Add weather widget (mock data)
+        function updateWeather() {
+            const weatherWidget = document.createElement('div');
+            weatherWidget.innerHTML = `
+             
+            `;
+            document.body.appendChild(weatherWidget);
+        }
+
+        // Call weather function after page load
+        setTimeout(updateWeather, 2000);
+
+        // Add search functionality (mock)
+        function addSearchBar() {
+            const searchBar = document.createElement('div');
+            searchBar.innerHTML = `
+               
+            `;
+            document.body.appendChild(searchBar);
+        }
+
+        setTimeout(addSearchBar, 1500);
+
+        console.log('Vasundhara Farm Stay website loaded successfully!');
+    </script>
+
+    <!-- Additional CSS for enhanced animations -->
+    <style>
+        .animate-in {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .weather-widget {
+            animation: fadeInRight 0.5s ease-out;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .search-container input {
+            transition: all 0.3s ease;
+        }
+
+        .search-container input:focus {
+            width: 250px;
+        }
+
+        body.loaded {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Enhanced hover effects */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-content h1 {
+            border-right: 2px solid #fff;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: #fff; }
+            51%, 100% { border-color: transparent; }
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .weather-widget,
+            .search-container {
+                display: none !important;
+            }
+        }
+    </style>
+</body>
+</html>
